@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Video Background</title>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    /* Video Background */
+    video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* ensures video covers the screen */
+      z-index: -1;
+    }
+
+    /* Content Overlay */
+    .content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: rgb(12, 201, 28);
+      text-align: center;
+      padding: 20px;
+    }
+
+    .content h1 {
+      font-size: 4vw; /* responsive font size */
+      text-shadow: 2px 2px 10px rgba(0,0,0,0.7);
+    }
+    .content h3 {
+      color: red;
+      text-shadow: 2px 2px 10px rgba(0,0,0,0.7);
+    }
+    .content h4 {
+      color: red;
+      text-shadow: 2px 2px 10px rgba(0,0,0,0.7);
+    }
+
+    .content p {
+      font-size: 2vw;
+      text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
+    }
+
+    /* Button Style */
+    #muteBtn {
+      position: fixed;
+      top: 2%;
+      right: 2%;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 50px;
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      cursor: pointer;
+      font-size: 1.2rem;
+      z-index: 10;
+      transition: background 0.3s;
+    }
+
+    #muteBtn:hover {
+      background: rgba(0, 0, 0, 0.8);
+    }
+
+    /* Make text and button responsive on small screens */
+    @media (max-width: 600px) {
+      .content h1 {
+        font-size: 6vw;
+      }
+      .content p {
+        font-size: 3.5vw;
+      }
+      #muteBtn {
+        font-size: 1rem;
+        padding: 8px 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+<button id="celebrateBtn">Celebrate!</button>
+
+<script>
+  const button = document.getElementById('celebrateBtn');
+
+  button.addEventListener('click', () => {
+    // Simple burst
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 }
+    });
+  });
+</script>
+<script>
+  function launchConfetti() {
+    const duration = 10 * 1000; // 5 seconds
+    const animationEnd = Date.now() + duration;
+    const colors = ['#bb0000', '#ffffff', '#00bb00', '#0000bb', '#ffcc00'];
+
+    (function frame() {
+      confetti({
+        particleCount: 5,
+        angle: 60,
+        spread: 55,
+        origin: { x: 0 },
+        colors: colors
+      });
+      confetti({
+        particleCount: 5,
+        angle: 120,
+        spread: 55,
+        origin: { x: 1 },
+        colors: colors
+      });
+
+      if (Date.now() < animationEnd) {
+        requestAnimationFrame(frame);
+      }
+    })();
+  }
+
+  // Example: launch on page load
+  window.onload = launchConfetti;
+</script>
+
+  <!-- Video Background -->
+  <video id="bgVideo" autoplay loop>
+    <source src="yourvideo.mp4" type="video/mp4">
+    Your browser does not support HTML5 video.
+  </video>
+
+  <!-- Mute/Unmute Button -->
+  <button id="muteBtn">🔇</button>
+
+  <!-- Content -->
+  <div class="content"> 
+    <h1>YAYYYY POPAT KA BIRTDHAY</h1>
+    <h2>Hahah(AUDIO ENABLE KAR DIO)</h2>
+    <h3>“Janamdin mubarak ho! Ek din tu fighter plane udayegi, par aaj sirf balloon hi udaya ja sakta hai!” 🎈</h3>
+    <h4>“Future pilot hai, par abhi tak stairs se bhi landing smooth nahi hoti!” 🛫😂</h4>
+    <p>Happy Birthday Mitthu mithuu</p>
+    <p>chilly flavour cake to ni kategi na</p>
+    <p>Pura song sunio 😂😂😂🦜✨✨</p>
+    <p>I WISH Har DIN TU KHUSHIYON KI UDAAN BHARE Specially Today :D</p>
+    <P>AAJ KA DIN HAI SUHANA</P>
+    <P>POPAT KO BIRTHDAY HAI MANANA</P>
+    <P>TO CHALO MILKAR GAAYE GAANA</P>
+    <P></P>
+    <P></P>
+    <P></P>
+    <P></P>
+    <P></P>
+    
+  </div>
+
+  <script>
+    const video = document.getElementById("bgVideo");
+    const btn = document.getElementById("muteBtn");
+
+    // Start muted (required by most browsers for autoplay)
+    video.muted = true;
+
+    btn.addEventListener("click", () => {
+      video.muted = !video.muted;
+      btn.textContent = video.muted ? "🔇" : "🔊";
+    });
+  </script>
+
+</body>
+</html>
